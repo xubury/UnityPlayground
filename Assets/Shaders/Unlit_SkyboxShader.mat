@@ -41,12 +41,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _LightPos: 0.657
+    - _LightPos: 0.687
     - _ux: 0.679
     - _uy: 0.748
     m_Colors:
     - _BottomColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CloudScale: {r: 0.2, g: 0.2, b: 0.02, a: 0.02}
+    - _CloudScale: {r: 0.1, g: 0.1, b: 0.01, a: 0.01}
     - _DayBottomColor: {r: 0.3058823, g: 0.4370342, b: 0.9607843, a: 1}
     - _DayTopColor: {r: 0.6666666, g: 1, b: 0.99397534, a: 1}
     - _HorizonColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}

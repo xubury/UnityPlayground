@@ -66,13 +66,13 @@ Shader "Unlit/SkyboxShader"
                 return o;
             }
 
-            float makeCloud(float2 skyuv, float worldPosY)
+            float makeCloud(float2 skyuv, float worldPosY, float cutOff, float fuzz)
             {
                 float noise = tex2D(_NoiseTex, (skyuv - _Time.x) * _CloudScale.xy);
                 float distort = tex2D(_DistortTex, (skyuv + noise - _Time.x) * _CloudScale.zw);
                 float base = tex2D(_CloudTex, (skyuv + noise - _Time.x) * _CloudScale.xy);
                 float cloud = base * distort;
-                cloud = smoothstep(0.2, 0.6, cloud);
+                cloud = smoothstep(cutOff, cutOff + fuzz, cloud);
                 cloud = saturate(cloud) * saturate(worldPosY);
                 return cloud;
             }
@@ -91,8 +91,9 @@ Shader "Unlit/SkyboxShader"
 
                 float horizon = abs(i.uv.y);
                 float3 horizonGlow = saturate((1 - horizon)) * _HorizonColor;
-
-                float cloud = makeCloud(skyuv, i.worldPos.y) + makeCloud(skyuv * 0.3, i.worldPos.y) * 0.3;
+                
+                float y = i.uv.y;
+                float cloud = saturate(makeCloud(skyuv, y, 0.2, 0.3) + makeCloud(skyuv, y, 0.4, 0.15));
 
                 float3 sky = skyGradients + horizonGlow + float3(cloud, cloud, cloud);
                 return float4(sky, 1.0);
